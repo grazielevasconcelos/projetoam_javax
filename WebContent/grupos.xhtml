@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_templateEE.xhtml">	
+	<ui:define name="main_content">
+		<h1>#{msgs.groups}</h1>	
+	
+		<h:form id="pesqGrupos" style="margin-bottom:2px;">
+			<h:outputText value="#{msgs.type_filter}" />
+			<p:inputText value="#{gruposBean.filtro}" />
+			<p:commandButton value="#{msgs.filter}" actionListener="#{gruposBean.filtrar}" icon="ui-icon-search" update=":tabMain" />
+			
+			<p:commandButton value="#{msgs.create_group}" action="criacao_grupo.xhtml?faces-redirect=true" icon="ui-icon-check" style="float:right;"/>
+		</h:form>
+		
+		<br/>
+	
+		<p:tabView id="tabMain">
+			<p:tab id="tabGroups" title="#{msgs.groups}">
+				<h:form id="formGrupos">
+
+					<p:dataGrid var="gru" value="#{gruposBean.grupos}" columns="5"
+						rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="10,20,30" emptyMessage="#{msgs.no_records}">
+						<p:panel>
+							<div id="painel">
+								<h:panelGrid columns="1" style="width:100%">
+									<p:graphicImage value="#{grupoImage.image}" width="80" height="110" style="margin-left:15px;">
+										<f:param name="id" value="${gru.codGrupo}"/>
+									</p:graphicImage>
+									<p:commandLink title="#{gru.nomeGrupo}" action="#{gruposBean.visualizarGrupo}">
+										<h:outputText value="#{gru.nomeGrupo} (#{gru.quantidade})" style="margin:0 auto;"/>
+										<f:setPropertyActionListener value="#{gru.codGrupo}"
+											target="#{grupoBean.codGrupo}" />
+									</p:commandLink>
+								</h:panelGrid>
+							</div>
+						</p:panel>
+					</p:dataGrid>
+
+				</h:form>
+			</p:tab>
+			
+			
+			
+			<p:tab id="tabMyGroups" title="#{msgs.my_groups}">
+				<h:form id="formMeusGrupos">
+
+					<p:dataGrid var="gru" value="#{gruposBean.meusGrupos}" columns="5"
+						rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="10,20,30" emptyMessage="#{msgs.no_records}">
+						<p:panel>
+							<div id="painel">
+								<h:panelGrid columns="1" style="width:100%">
+									<p:graphicImage value="#{grupoImage.image}" width="80" height="110" style="margin-left:15px;">
+										<f:param name="id" value="${gru.codGrupo}"/>
+									</p:graphicImage>
+									<p:commandLink title="#{gru.nomeGrupo}" action="#{gruposBean.visualizarGrupo}">
+										<h:outputText value="#{gru.nomeGrupo} (#{gru.quantidade})" style="margin:0 auto;" />
+										<f:setPropertyActionListener value="#{gru.codGrupo}"
+											target="#{grupoBean.codGrupo}" />
+									</p:commandLink>
+								</h:panelGrid>
+							</div>
+						</p:panel>
+					</p:dataGrid>
+
+				</h:form>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>
+
+</html>

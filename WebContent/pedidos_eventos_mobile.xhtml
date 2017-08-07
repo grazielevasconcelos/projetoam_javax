@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:p="http://primefaces.org/ui" contentType="text/html"
+	renderKitId="PRIMEFACES_MOBILE">
+
+
+	<f:loadBundle var="msgs" basename="nls.mensagem" />
+
+	<pm:page title="#{msgs.messages}">
+
+		<pm:view swatch="e">
+			<pm:header title="#{msgs.eventsReq}" swatch="e">
+				<f:facet name="left">
+					<p:button value="#{msgs.back}" icon="back" href="homeMobile.xhtml" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandLink value="Sair" icon="back"
+						action="#{loginBean.logout}" />
+				</f:facet>
+			</pm:header>
+
+			<h:form id="PedidoEvento">
+				<h3>#{msgs.requests}</h3>
+				<p:dataList id="pedidosGrupo" var="ped"
+					value="#{mobileBean.pedidosEvento}" emptyMessage="#{msgs.no_records}">
+					<p:accordionPanel activeIndex="1" id="tabMainPed">
+						<p:tab title="#{ped.evento.nome}">
+							<p:column>
+								<h:outputText value="#{ped.descricao}" />
+							</p:column>
+							<p:column>
+								<p:commandButton actionListener="#{mobileBean.aceitarPedidoEvento(ped)}" 
+									value="#{msgs.accept}" 
+									ajax="true" update=":PedidoEvento" />
+								<p:commandButton actionListener="#{mobileBean.recusarPedidoEvento(ped)}" 
+								value="#{msgs.decline}" ajax="true" update=":PedidoEvento" />
+							</p:column>
+						</p:tab>
+					</p:accordionPanel>
+				</p:dataList>
+			</h:form>
+		</pm:view>
+
+	</pm:page>
+
+</f:view>

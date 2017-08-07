@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/_templateEE.xhtml">
+	<ui:define name="main_content">
+		<h:form id="todosMembros">
+			<h1>
+				<h:commandLink action="#{grupoBean.paginaGrupo}">
+					<h:outputText value="#{grupoBean.membroGrupo.grupo.nomeGrupo}"></h:outputText>
+				</h:commandLink>
+			</h1>
+			<p:tabView id="tabMain" activeIndex="#{grupoBean.membroGrupo.activeTabMember}">
+				<p:tab id="tabMembersGroupExc" title="#{msgs.remove_group}">
+					<p:dataTable id="multiMembroExclusao" var="mem"
+						value="#{grupoBean.membroGrupo.pdmExc}" paginator="true" rows="10"
+						selection="#{grupoBean.membroGrupo.membrosSelecionadosExc}">
+						<f:facet name="header">#{msgs.select_members}</f:facet>
+
+						<p:column selectionMode="multiple" style="width:2%" />
+
+						<p:column headerText="#{msgs.photo}" style="width:32%">
+							<p:graphicImage value="#{pessoaImage.image}" width="160"
+								height="160" style="margin-left:15px;">
+								<f:param name="id" value="${mem.codPessoa}" />
+							</p:graphicImage>
+						</p:column>
+						<p:column headerText="#{msgs.nickname}" style="width:32%">#{mem.apelido} </p:column>
+						<p:column headerText="#{msgs.name}" style="width:33%">#{mem.nome} </p:column>
+						<f:facet name="footer">
+							<p:commandButton value="#{msgs.remove}"
+								icon="ui-icon-trash"
+								actionListener="#{grupoBean.membroGrupo.excluirMembro}"
+								update=":todosMembros:tabMain" ajax="true" >
+							</p:commandButton>
+						</f:facet>
+
+					</p:dataTable>
+				</p:tab>
+
+				<p:tab id="tabAddMembers" title="#{msgs.add_members}">
+					<p:dataTable id="multiMembs" var="p"
+						value="#{grupoBean.membroGrupo.pdm}" paginator="true" rows="10"
+						selection="#{grupoBean.membroGrupo.membrosSelecionadosAdd}">
+						<f:facet name="header">#{msgs.select_members}</f:facet>
+						<p:column selectionMode="multiple" style="width:2%" />
+						<p:column headerText="#{msgs.photo}" style="width:32%">
+							<p:graphicImage value="#{pessoaImage.image}" width="160"
+								height="160" style="margin-left:15px;">
+								<f:param name="id" value="${p.codPessoa}" />
+							</p:graphicImage>
+						</p:column>
+						<p:column headerText="#{msgs.nickname}" style="width:32%">#{p.apelido} </p:column>
+						<p:column headerText="#{msgs.name}" style="width:33%">#{p.nome} </p:column>
+						<f:facet name="footer">
+							<p:commandButton  
+								value="#{msgs.add_members}" id="addMembro" icon="ui-icon-check"
+								actionListener="#{grupoBean.membroGrupo.addMembroGrupo}"
+								update=":todosMembros:tabMain" ajax="true">
+							</p:commandButton>
+						</f:facet>
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

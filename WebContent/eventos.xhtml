@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_templateEE.xhtml">
+	<ui:define name="main_content">
+		<h1>#{msgs.events}</h1>
+		
+		<h:form id="pesqEventos" style="margin-bottom:2px;">
+			<h:outputText value="#{msgs.type_filter}" />
+			<p:inputText value="#{eventosBean.filtro}" />
+			<p:commandButton value="#{msgs.filter}" actionListener="#{eventosBean.filtrar}" icon="ui-icon-search" update=":tabMain" />
+			
+			<p:commandButton value="#{msgs.create_event}" action="criacao_evento.xhtml?faces-redirect=true" icon="ui-icon-check" style="float:right;"/>
+		</h:form>
+		
+		<br />
+	
+		<p:tabView id="tabMain">
+			<p:tab id="tabEvents" title="#{msgs.events}">
+				<h:form id="formEvento">
+
+					<p:dataGrid var="eve" value="#{eventosBean.eventos}" columns="5"
+						rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="10,20,30" emptyMessage="#{msgs.no_records}">
+						<p:panel>
+							<div id="painel">
+								<h:panelGrid columns="1" style="width:100%">
+									<p:graphicImage value="#{eventoImage.image}" width="80" height="110" style="margin-left:15px;">
+										<f:param name="id" value="${eve.codEvento}"/>
+									</p:graphicImage>
+									<p:commandLink title="#{eve.nome}" >
+										<h:outputText value="#{eve.nome} (#{eve.quantidade})" style="margin:0 auto;"/>
+										<f:setPropertyActionListener value="#{eve.codEvento}"
+											target="#{eventoBean.codEvento}" />
+									</p:commandLink>
+								</h:panelGrid>
+							</div>
+						</p:panel>
+					</p:dataGrid>
+
+				</h:form>
+			</p:tab>
+			
+			
+			
+			<p:tab id="tabMyEvents" title="#{msgs.my_events}">
+				<h:form id="formMeusEventos">
+
+					<p:dataGrid var="eve" value="#{eventosBean.meusEventos}" columns="5"
+						rows="10" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="10,20,30" emptyMessage="#{msgs.no_records}">
+						<p:panel>
+							<div id="painel">
+								<h:panelGrid columns="1" style="width:100%">
+									<p:graphicImage value="#{eventoImage.image}" width="80" height="110" style="margin-left:15px;">
+										<f:param name="id" value="${eve.codEvento}"/>
+									</p:graphicImage>
+									<p:commandLink title="#{eve.nome}">
+										<h:outputText value="#{eve.nome} (#{eve.quantidade})" style="margin:0 auto;" />
+										<f:setPropertyActionListener value="#{eve.codEvento}"
+											target="#{eventoBean.codEvento}" />
+									</p:commandLink>
+								</h:panelGrid>
+							</div>
+						</p:panel>
+					</p:dataGrid>
+
+				</h:form>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:composition>
+
+</html>

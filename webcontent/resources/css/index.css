@@ -1,0 +1,179 @@
+body {
+    margin:0px;
+    padding:0px;
+    background: url("images/bike.png");
+    font: 14px  verdana, arial, helvetica;
+    color:#233e42;
+     
+  	background: url(images/bike.png) no-repeat center center fixed; 
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+}
+#main_container{
+	
+}
+#header{
+	color: #FFF;
+	padding:3px;
+	background-color:#ff9f0f;
+}
+#header a{
+	color: #233e42;
+	font-weight:bold;
+    text-decoration:none;
+}
+#header_itemMenu{
+	float:left;
+	width:auto;
+	margin: 0 1px 0 1px;
+}
+a #header_itemMenu{
+	float:left;
+	width:auto;
+	padding: 2px 3px 2px 1px;
+}
+a:hover #header_itemMenu {
+	background:#feb342;
+}
+#header_itemMenu a:hover img{
+	background:#feb342;
+}
+.header_flag {
+	margin: 0 2px 0 1px;
+}
+#content_header {
+	margin-left:auto;
+	margin-right:auto;
+	width:900px;
+}
+#content_header a:hover{
+	background:#feb342;
+	padding: 1px 0 2px 0;
+}
+#header_lang{
+	float:right;
+    margin: 1px 0 1px 0;
+}
+#main_content{
+	width:870px;
+	margin-right:auto;
+	margin-left:auto;
+	margin-bottom:10px;
+	margin-top:10px;
+	padding: 5px 15px 5px 15px;
+}
+#login_box{
+	border-radius: 10px;
+	width:280px;
+	float:right;
+	margin-top:20px;
+	margin-bottom:auto;
+	padding:7px 12px 7px 12px;
+	background-image: linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -o-linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -moz-linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -webkit-linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -ms-linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.26, rgb(204,204,204)),
+		color-stop(0.67, rgb(240,240,240)),
+		color-stop(0.8, rgb(235,235,235))
+	);
+}
+.input_box{
+	float:right;
+}
+.input_button{
+	float:right;
+	color:#FFF;
+	margin-right:5xpx;
+	background-image: url("images/button.png");
+	width:160px;
+	height: 30px;
+	border-radius: 10px;
+}
+#msg{
+	margin-top: 30px;
+	margin-left: -30px;
+	width: 440px;
+	font-size: 20px;
+	font-family: Estrangelo Edessa /* Lucida Sans Unicode */;
+	text-shadow: 1px 1px 1px white;
+}
+#cadastra_box{
+	border-radius: 10px;
+	width:280px;
+	float:right;
+	margin-top:110px;
+	margin-bottom:auto;
+	padding:7px 12px 7px 12px;
+	background-image: linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -o-linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -moz-linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -webkit-linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -ms-linear-gradient(bottom, rgb(204,204,204) 26%, rgb(240,240,240) 67%, rgb(235,235,235) 80%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.26, rgb(204,204,204)),
+		color-stop(0.67, rgb(240,240,240)),
+		color-stop(0.8, rgb(235,235,235))
+	);
+}
+#titulo_cadastro{
+	font-weight:700 ;
+}
+#footer{
+	color: #FFF;
+	padding:5px;
+	background-color:#ff9f0f;
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+}
+#footer_content{
+	width:900px;
+	margin-right:auto;
+	margin-left:auto;
+    text-align:right;
+}
+#footer_content a{
+	color: #1f373b;
+    text-decoration:none;
+}
+h1{
+	margin-left:30px;
+	font: 24px  verdana, arial, helvetica;
+	font-weight:bold;
+	color: #656565;
+	margin-top:5px;
+}
+.detach{
+	font: 16px  verdana, arial, helvetica;
+	color: #656565;
+}
+.msg_title{
+	font: 22px verdana, arial, helvetica ;
+	margin-left:10px;
+	font-weight: bold;
+}
+.msg_content {
+	margin-top:5px;
+}
+.links{
+	font: 14px  verdana, arial, helvetica;
+	color: #A6A6A6;
+}
+h1{
+	font: 24px  verdana, arial, helvetica;
+	font-weight:bold;
+	color: #656565;
+	margin-top:5px;
+	text-align: center;
+}

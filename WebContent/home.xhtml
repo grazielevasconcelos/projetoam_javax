@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_templateEE.xhtml">
+	<ui:define name="main_content">
+	    <h1>#{msgs.welcome}</h1>
+	    
+	    <div id="coluna_esquerda" style="text-align: justify;">
+	    
+	    	<p style="margin-left='10px;'">#{msgs.welcomeMessage}<b><a href="home.xhtml">Encontro Esportivo</a></b>#{msgs.initialMessage}</p>
+	    	<p style="margin-left='10px;'">#{msgs.a} <b><a href="grupos.xhtml">#{msgs.group}</a></b> #{msgs.groupMessage}</p>
+	    	<p style="margin-left='10px;'">#{msgs.a} <b><a href="eventos.xhtml">#{msgs.event}</a></b> #{msgs.eventMessage}</p>
+	    
+	    	<p:separator />
+	    	
+	    	<p style="margin-left='10px;'">#{msgs.welcomeMessage2}</p>
+	    	<p:media value="https://youtube.googleapis.com/v/Lxn1-pKY-9I?showinfo=0;rel=0;" width="640" 
+				height="360" player="flash"/>
+	    </div>
+
+		<div id="coluna_direita">
+			#{msgs.inviteEmailFriend} <a href="envio_email.xhtml">#{msgs.clickHere}!</a>
+			<p:separator />
+			<a href="criacao_grupo.xhtml">#{msgs.createHereGroup}</a>
+			<p:separator />
+			<a href="criacao_evento.xhtml">#{msgs.createHereEvent}</a>
+			<p:separator />	
+			<p:pieChart id="sample" value="#{homeBean.estatisticaEsportes}"
+				legendPosition="s" sliceMargin="3" fill="true" showDataLabels="true"
+				diameter="150"
+				style="width:210px; height:450px;"
+				title="#{msgs.sports_statistics}"  />
+		</div>
+
+		<br style="clear: both;" />
+
+	</ui:define>
+</ui:composition>
+
+</html>

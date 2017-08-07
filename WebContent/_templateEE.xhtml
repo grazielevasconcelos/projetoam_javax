@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{loginBean.locale}">
+	<f:loadBundle var="msgs" basename="nls.mensagem" />
+
+	<h:head>
+		<title>Encontro Esportivo</title>
+		<h:outputStylesheet name="main.css" library="css"/>
+		<h:outputScript library="js" name="main.js" />
+		<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8" />
+	</h:head>
+
+	<h:body>
+	
+		<div id="main_container">
+			<div id="header">
+				<div id="content_header">
+					<div id="header_menu">
+						<a href="home.xhtml">
+							<div id="header_itemMenu">Encontro Esportivo</div>
+						</a>
+						<ui:insert name="header_menu">
+							<f:metadata>
+								<f:event type="preRenderView" listener="#{loginBean.getNews}" />
+							</f:metadata>
+							<div id="header_itemMenu" onmouseout="hidePendencia('pendenciaEventos','hidden')" onmouseover="hidePendencia('pendenciaEventos','visible')">
+								<h:outputLink value="convite_pedido_eventos.xhtml">
+									<p:graphicImage name="#{loginBean.imgEventos}" library="images"
+										height="21" width="21" />
+									<div id="pendenciaEventos" class="arrow_box">
+										<b>#{msgs.eventsReqInv}</b> <br />
+										<p:separator />
+										#{msgs.you_have} <b>#{loginBean.eventsInvites}</b> #{msgs.invites_and} <b>#{loginBean.eventsRequests}</b> #{msgs.requests_pending}
+									</div>
+								</h:outputLink>
+							</div>
+							<div id="header_itemMenu" onmouseout="hidePendencia('pendenciaGrupos','hidden')" onmouseover="hidePendencia('pendenciaGrupos','visible')">
+								<h:outputLink value="convite_pedido_grupos.xhtml">
+									<p:graphicImage name="#{loginBean.imgGrupos}" library="images" height="21"
+										width="21" />
+									<div id="pendenciaGrupos" class="arrow_box">
+										<b>#{msgs.groupsReqInv}</b> <br />
+										<p:separator />
+										#{msgs.you_have} <b>#{loginBean.groupsInvites}</b> #{msgs.invites_and} <b>#{loginBean.groupsRequests}</b> #{msgs.requests_pending}
+									</div>
+								</h:outputLink>
+							</div>
+							<div id="header_itemMenu" onmouseout="hidePendencia('pendenciaMensagens','hidden')" onmouseover="hidePendencia('pendenciaMensagens','visible')">
+								<h:outputLink value="mensagens.xhtml">
+									<p:graphicImage name="#{loginBean.imgMensagens}" library="images" height="21"
+										width="21" />
+									<div id="pendenciaMensagens" class="arrow_box">
+										<b>#{msgs.messages}</b> <br />
+										<p:separator />
+										#{msgs.you_have} <b>#{loginBean.unreadMessages}</b> #{msgs.unread_messages}
+									</div>
+								</h:outputLink>
+							</div>
+						</ui:insert>
+					</div>
+					<ui:insert name="header_user">
+						<div id="user_info">
+							<div class="user">
+								<ui:insert name="user">	#{loginBean.pessoa.apelido} </ui:insert>
+							</div>
+							<div style="float: left; padding: 0 3px 0 3px;">|</div>
+							<h:form class="frmLogout">
+								<h:commandLink value="#{msgs.logout}"
+									action="#{loginBean.logout}" />
+							</h:form>
+						</div>
+					</ui:insert>
+					<br style="clear: both;" />
+				</div>
+			</div>
+
+			<ui:insert name="menu">
+				<div id="menu">
+					<div id="menu_content">
+						<div id="itemMenu">
+							<h:outputLink value="home.xhtml">#{msgs.home}</h:outputLink>
+						</div>
+						<div id="itemMenu">
+							<h:outputLink value="#">#{msgs.profile}</h:outputLink>
+						</div>
+						<div id="itemMenu">
+							<h:outputLink value="noticias.xhtml">#{msgs.notices}</h:outputLink>
+						</div>
+						<div id="itemMenu">
+							<h:outputLink value="grupos.xhtml">#{msgs.groups}</h:outputLink>
+						</div>
+						<div id="itemMenu">
+							<h:outputLink value="eventos.xhtml">#{msgs.events}</h:outputLink>
+						</div>
+						<br style="clear: both;" />
+					</div>
+				</div>
+			</ui:insert>
+
+			<div id="main_content">
+				<ui:insert name="main_content">
+					<h1>Título Pág.</h1>
+					<br />
+					<br />
+					<br />
+					<br />
+					Conteúdo Padrão!
+					<br />
+					<br />
+					<br />
+					<br />
+				</ui:insert>
+			</div>
+
+			<div id="footer">
+				<ui:insert name="footer">
+					<div id="footer_content">
+						<a href="about_us.xhtml">
+							<div id="footer_link" style="float:left;">
+								#{msgs.aboutUs}
+							</div>
+						</a>
+					
+						<div id="footer_javax">
+							 | Javax Solutions
+						</div>
+						
+						<a href="mapa.xhtml">
+							<div id="footer_link">
+								Mapa do Site
+							</div>
+						</a>
+						
+					</div>
+				</ui:insert>
+			</div>
+		</div>
+
+	</h:body>
+
+</f:view>
+
+</html>

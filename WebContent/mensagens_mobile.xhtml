@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pm="http://primefaces.org/mobile"
+	xmlns:p="http://primefaces.org/ui" contentType="text/html"
+	renderKitId="PRIMEFACES_MOBILE">
+
+
+	<f:loadBundle var="msgs" basename="nls.mensagem" />
+
+	<pm:page title="#{msgs.messages}">
+
+		<pm:view swatch="e">
+			<pm:header title="#{msgs.messages}" swatch="e">
+				<f:facet name="left">
+					<p:button value="#{msgs.back}" icon="back" href="homeMobile.xhtml" />
+				</f:facet>
+				<f:facet name="right">
+					<p:commandLink value="Sair" icon="back"
+						action="#{loginBean.logout}" />
+				</f:facet>
+			</pm:header>
+			<h:form id="MensagemGrupo">
+				<h:messages></h:messages>
+				<h3>#{msgs.group}</h3>
+				<p:dataList id="mensagensGrupo" var="msg"
+					value="#{mobileBean.mensagensGrupo}">
+					<p:accordionPanel activeIndex="1">
+						<p:tab title="#{msg.grupo.nomeGrupo}">
+							<p:column headerText="#{msgs.title}" style="width:40%">  
+            				#{msg.titulo} :  
+        					</p:column>
+							<p:column headerText="#{msgs.description}" style="width:50%">  
+            				#{msg.descricao}  
+        					</p:column>
+							<p:column style="width:10%">
+								<p:commandButton
+									action="#{mobileBean.marcarLidaMensagemGrupo(msg)}"
+									value="Marcar como lida" ajax="true" update=":MensagemGrupo" />
+							</p:column>
+						</p:tab>
+					</p:accordionPanel>
+				</p:dataList>
+				<p:dataList id="mensagensGrupoAll" var="msg"
+					value="#{mobileBean.msgsGrupoAll}">
+					<p:accordionPanel activeIndex="1">
+						<p:tab title="#{msg.grupo.nomeGrupo}">
+							<p:column headerText="#{msgs.title}" style="width:40%">  
+            				#{msg.titulo} :  
+        					</p:column>
+							<p:column headerText="#{msgs.description}" style="width:50%">  
+            				#{msg.descricao}  
+        					</p:column>
+							<p:column style="width:10%">
+								<p:commandButton
+									action="#{mobileBean.excluirMsgsGrupo(msg)}"
+									value="Excluir" ajax="true" update=":MensagemGrupo" />
+							</p:column>
+						</p:tab>
+					</p:accordionPanel>
+				</p:dataList>
+			</h:form>
+			<h:form id="MensagemEvento">
+				<h3>#{msgs.event}</h3>
+				<p:dataList id="mensagensEvento" var="msg"
+					value="#{mobileBean.mensagensEvento}">
+					<p:accordionPanel activeIndex="1">
+						<p:tab title="#{msg.evento.nome}">
+							<p:column headerText="#{msgs.title}" style="width:40%; ">  
+            				#{msg.titulo} :  
+        					</p:column>
+
+							<p:column headerText="#{msgs.description}" style="width:50%">  
+            				#{msg.descricao}  
+        					</p:column>
+							<p:column style="width:10%">
+								<p:commandButton
+									action="#{mobileBean.marcarLidaMensagemEvento(msg)}"
+									value="Marcar como lida" ajax="true" update=":MensagemEvento" />
+							</p:column>
+
+						</p:tab>
+					</p:accordionPanel>
+				</p:dataList>
+				<p:dataList id="mensagensEventoAll" var="msg"
+					value="#{mobileBean.msgsEventoAll}">
+					<p:accordionPanel activeIndex="1">
+						<p:tab title="#{msg.evento.nome}">
+							<p:column headerText="#{msgs.title}" style="width:40%; ">  
+            				#{msg.titulo} :  
+        					</p:column>
+
+							<p:column headerText="#{msgs.description}" style="width:50%">  
+            				#{msg.descricao}  
+        					</p:column>
+							<p:column style="width:10%">
+								<p:commandButton
+									action="#{mobileBean.excluirMsgsEvento(msg)}"
+									value="Excluir" ajax="true" update=":MensagemEvento" />
+							</p:column>
+
+						</p:tab>
+					</p:accordionPanel>
+				</p:dataList>				
+			</h:form>
+		</pm:view>
+
+	</pm:page>
+
+</f:view>

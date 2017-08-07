@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_templateEE.xhtml">
+	<ui:define name="main_content">
+		<h:form id="todosModeradores">
+			<h1>
+				<h:commandLink action="#{grupoBean.paginaGrupo}">
+					<h:outputText value="#{grupoBean.grupo.nomeGrupo}"></h:outputText>
+				</h:commandLink>
+			</h1>
+			<p:tabView id="tabMain">
+				<p:tab id="tabModeradorExc" title="#{msgs.moderator}">
+					<p:dataTable id="multiModeratorsExclusao" var="moderador"
+						value="#{grupoBean.moderadorGrupo.mdmExc}"  paginator="true"
+						rows="10"
+						selection="#{grupoBean.moderadorGrupo.modSelecionadosExc}" >
+						<f:facet name="header"> #{msgs.select_moderator} </f:facet>
+
+						<p:column selectionMode="multiple" style="width:2%" />
+						<p:column headerText="#{msgs.photo}" style="width:32%">
+							<p:graphicImage value="#{pessoaImage.image}" width="160"
+								height="160" style="margin-left:15px;">
+								<f:param name="id" value="${moderador.codPessoa}" />
+							</p:graphicImage>
+						</p:column>
+						<p:column headerText="#{msgs.nickname}" style="width:32%">  #{moderador.apelido} </p:column>
+						<p:column headerText="#{msgs.name}" style="width:33%">  #{moderador.nome} </p:column>
+						<f:facet name="footer">
+							<p:commandButton type="submit" value="#{msgs.remove}"
+								ajax="false" icon="ui-icon-trash"
+								action="#{grupoBean.moderadorGrupo.excluirModeradorDoGrupo}"
+								update=":todosModeradores:moderadores">
+							</p:commandButton>
+							<p:commandButton type="submit" value="#{msgs.disable_moderator}"
+								ajax="false" icon="ui-icon-closethick"
+								action="#{grupoBean.moderadorGrupo.desabilitarModerador}"
+								update=":todosModeradores:moderadores">
+							</p:commandButton>
+						</f:facet>
+
+					</p:dataTable>
+
+				</p:tab>
+				<p:tab id="tabAddModeratorAdd" title="#{msgs.members}">
+					<p:dataTable id="moderatorsAdicionar" var="m"
+						value="#{grupoBean.moderadorGrupo.mdm}" paginator="true" rows="10"
+						selection="#{grupoBean.moderadorGrupo.moderadorSelecionados}" >
+						<f:facet name="header"> #{msgs.select_moderator} </f:facet>
+
+						<p:column selectionMode="multiple" style="width:2%" />
+
+						<p:column headerText="#{msgs.photo}" style="width:32%">
+							<p:graphicImage value="#{pessoaImage.image}" width="160"
+								height="160" style="margin-left:15px;">
+								<f:param name="id" value="${m.codPessoa}"/>
+							</p:graphicImage>
+						</p:column>
+						<p:column headerText="#{msgs.nickname}" style="width:32%">#{m.apelido}</p:column>
+
+						<p:column headerText="#{msgs.name}" style="width:33%">#{m.nome}</p:column>
+
+						<f:facet name="footer">
+							<p:commandButton ajax="false" type="submit"
+								value="#{msgs.add_moderator}" id="addModerador"
+								icon="ui-icon-check" action="#{grupoBean.moderadorGrupo.addModerador}"
+								style="margin:0" update=":todosModeradores:mdm">
+							</p:commandButton>
+						</f:facet>
+
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

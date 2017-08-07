@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/_templateEE.xhtml">
+	<ui:define name="main_content">
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{grupoBean.buscaGrupo()}" />
+		</f:metadata>
+		<h1>#{grupoBean.grupo.nomeGrupo}</h1>
+		<h:form id="formGrupo" rendered="#{grupoBean.btnFormGrupo()}">
+			<p:growl id="messages" showDetail="true" />
+			<p:panel style="text-align:right">
+				<p:commandButton ajax="false" type="submit" value="Mensagem Grupo"
+					icon="ui-icon-mail-closed" style="margin:5px"
+					action="#{grupoBean.msgGrupo}"
+					rendered="#{grupoBean.btnRenderPgMsg()}" />
+				<p:commandButton ajax="false" value="Participar"
+					icon="ui-icon-circle-plus" style="margin:5px"
+					action="#{grupoBean.participarGrupo}">
+				</p:commandButton>
+				<p:commandButton ajax="false" type="submit"
+					value="#{msgs.leave_group}" icon="ui-icon-circle-close"
+					style="margin:5px" action="#{grupoBean.sairGrupo}"
+					rendered="#{grupoBean.btnRenderSairGroup()}" />
+			</p:panel>
+			<div id="caixas">
+				<div class="caixa1">
+					<p:panelGrid columns="1">
+						<f:facet name="header">
+							<h:outputText value="#{grupoBean.grupo.nomeGrupo}"></h:outputText>
+						</f:facet>
+						<p:graphicImage value="#{grupoImage.image}" width="160"
+							height="160" style="margin-left:15px;">
+							<f:param name="id" value="${grupoBean.grupo.codGrupo}" />
+						</p:graphicImage>
+						<br></br>
+						<p:outputLabel value="#{msgs.adm}: #{grupoBean.grupo.adm.nome}"></p:outputLabel>
+
+						<p:outputLabel value="#{msgs.category}">
+							<br />
+							<h:outputText value="#{grupoBean.grupo.esportes[0].nome}"
+								rendered="#{!empty grupoBean.grupo.esportes[0].nome}" />
+							<br />
+							<h:outputText value="#{grupoBean.grupo.esportes[1].nome}"
+								rendered="#{!empty grupoBean.grupo.esportes[1].nome}" />
+							<br />
+							<h:outputText value="#{grupoBean.grupo.esportes[2].nome}"
+								rendered="#{!empty grupoBean.grupo.esportes[2].nome}" />
+						</p:outputLabel>
+						<p:outputLabel
+							value="#{msgs.number_of_members} #{grupoBean.numMembros}"></p:outputLabel>
+						<p:outputLabel
+							value="#{msgs.privacy} #{grupoBean.grupo.privacidade}"></p:outputLabel>
+						<f:facet name="footer">
+							<p:commandButton ajax="false" type="submit" value="#{msgs.edit}"
+								action="#{grupoBean.edicaoGrupo}" icon="ui-icon-check"
+								style="margin:3px;" rendered="#{grupoBean.btnRenderEditGroup()}" />
+							<p:commandButton ajax="false" type="submit"
+								value="#{msgs.remove_group}" icon="ui-icon-trash"
+								style="margin:3px;" action="#{grupoBean.btnExclusao}"
+								rendered="#{grupoBean.btnRenderRemoveGroup()}" />
+
+						</f:facet>
+					</p:panelGrid>
+				</div>
+
+				<div class="caixa2">
+					<p:panel header="#{msgs.description}">
+						<h:panelGrid columns="1">
+							<h:outputText value="#{grupoBean.grupo.descricao}" />
+						</h:panelGrid>
+					</p:panel>
+				</div>
+			</div>
+		</h:form>
+		<div class="caixaAux"> </div>
+			<div class="blocomaior">
+				<div class="bloco1">
+					<h:form id="formComentario"
+						rendered="#{grupoBean.btnRenderFormComents()}">
+						<p:panel id="comment" header="#{msgs.comment}" styleClass="bloco1Coment"> 
+							<p:inputTextarea id="coment"
+								value="#{grupoBean.comentarioGrupo.comentario}" required="true"
+								rows="6" cols="32" counter="counter" maxlength="300"
+								counterTemplate="#{msgs.maximum_of_300_characters}">
+							</p:inputTextarea>
+							<br></br>
+							<h:outputText id="counter" />
+							<br></br>
+							<p:commandButton type="submit" value="Enviar" icon="ui-icon-disk"
+								action="#{grupoBean.btnEnviarComentario}"
+								update=":formVisualizacaoComentario:listComentarios" />
+						</p:panel>
+					</h:form>
+				</div>
+				<div class="bloco1">
+					<h:form id="formVisualizacaoComentario"
+						rendered="#{grupoBean.btnRenderFormVisuComents()}">
+						<p:dataGrid id="listComentarios" var="posts"
+							value="#{grupoBean.grupo.comentarios}" columns="1" rows="8">
+							<p:panel header="#{msgs.comment}" styleClass="bloco1Coment">
+								<h:panelGrid columns="1">
+									<f:facet name="header">
+										<h:outputLabel value="#{posts.pessoa.apelido}"></h:outputLabel>
+									</f:facet>
+									<h:outputText value="#{posts.comentario}" />
+									<f:facet name="footer">
+										<p:commandButton type="submit" value="#{msgs.delete}"
+											ajax="false" icon="ui-icon-trash"
+											action="#{grupoBean.excluirComentario(posts.codComentario)}"
+											update=":formVisualizacaoComentario:listComentarios"
+											rendered="#{grupoBean.btnRenderDeleteComent()}">
+										</p:commandButton>
+										<h:outputText
+											value="#{grupoBean.dataFormatada(posts.dataHora)}"
+											pattern="dd/MM/yyyy">
+											<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+										</h:outputText>
+									</f:facet>
+								</h:panelGrid>
+							</p:panel>
+						</p:dataGrid>
+					</h:form>
+				</div>
+			</div>
+			<h:form id="detalhesInfo">
+				<div class="caixa3maior">
+					<div class="caixa3">
+						<p:carousel id="membroCarousel" value="#{grupoBean.grupo.membros}"
+							var="membro" rows="2" numVisible="3" effect="easeInStrong"
+							itemStyle="height:90px;width:250px">
+							<f:facet name="header">#{msgs.members}</f:facet>
+							<h:panelGrid columns="1" style="width:100%" cellpadding="5">
+								<h:outputText value="#{membro.nome} (#{membro.apelido})"></h:outputText>
+							</h:panelGrid>
+							<f:facet name="footer">
+								<p:commandButton ajax="false" type="submit"
+									value="#{msgs.manage_members}" icon="ui-icon-wrench"
+									action="#{grupoBean.visualizarTodosMembros()}"
+									rendered="#{grupoBean.btnRenderGerenciarMembers()}">
+								</p:commandButton>
+								<p:commandButton ajax="false" type="submit"
+									value="#{msgs.all_members}" icon="ui-icon-check"
+									action="#{grupoBean.TodosMembros()}"
+									rendered="#{grupoBean.btnRenderAllMembros()}">
+								</p:commandButton>
+							</f:facet>
+						</p:carousel>
+					</div>
+					<div class="caixa3">
+						<p:carousel id="moderadoresRowCarousel" rows="2" numVisible="3"
+							value="#{grupoBean.grupo.moderadores}" var="moderador"
+							itemStyle="height:90px;width:250px">
+							<f:facet name="header">#{msgs.moderator}</f:facet>
+							<h:panelGrid columns="1" style="width:100%" cellpadding="5">
+								<h:outputText value="#{moderador.nome} (#{moderador.apelido})" />
+							</h:panelGrid>
+							<f:facet name="footer">
+								<p:commandButton ajax="false" type="submit"
+									value="#{msgs.manage_moderators}" icon="ui-icon-wrench"
+									action="#{grupoBean.gerenciarModerador}"
+									rendered="#{grupoBean.btnRenderGerenciarModeradores()}">
+								</p:commandButton>
+								<p:commandButton ajax="false" type="submit"
+									value="#{msgs.moderators}" icon="ui-icon-check"
+									action="#{grupoBean.TodosModeradores()}"
+									rendered="#{grupoBean.btnRenderAllModeradores()}">
+								</p:commandButton>
+							</f:facet>
+						</p:carousel>
+					</div>
+					<div class="caixa3">
+						<p:carousel id="proximosEventos" rows="2" numVisible="3"
+							value="#{grupoBean.proximosEventos}" var="proxEvento"
+							itemStyle="height:90px;width:250px">
+							<f:facet name="header">Próximo Evento</f:facet>
+							<h:panelGrid columns="1" style="width:100%" cellpadding="5">
+								<h:outputText
+									value="#{proxEvento.nome} (#{grupoBean.dataFormatadaDDMMYYYY(proxEvento.dtEvento)})" />
+							</h:panelGrid>
+							<f:facet name="footer">
+							</f:facet>
+						</p:carousel>
+					</div>
+					<div class="caixa3">
+						<p:carousel id="historicoEventos" rows="2" numVisible="3"
+							value="#{grupoBean.historicoEventos}" var="histEvento"
+							itemStyle="height:90px;width:250px">
+							<f:facet name="header">Histórico Evento</f:facet>
+							<h:outputText style="text-align:center"
+								value="#{histEvento.nome} (#{grupoBean.dataFormatadaDDMMYYYY(histEvento.dtEvento)})"></h:outputText>
+							<f:facet name="footer">
+							</f:facet>
+						</p:carousel>
+					</div>
+				</div>
+			</h:form>
+	</ui:define>
+</ui:composition>
+</html>
